@@ -111,7 +111,7 @@ var connectControllers = function () {
 var colors = [
     'rgb(213,15,37)',
     'rgba(238,178,17,1.0)',
-	'rgb(17,178,238)'
+    'rgb(17,178,238)'
 ];
 
 var connectUses = function () {
@@ -265,7 +265,7 @@ var loadData = function () {
             val.type = 'service';
         });
     });
-    $.when(req1, req3).then(function () {
+    $.when(req1, req2, req3).then(function () {
         deferred.resolve();
     });
     return deferred;
@@ -304,7 +304,7 @@ var reload = function () {
     $.when(promise).then(function () {
         groupByName();
         renderGroups();
-        //connectControllers();
+        connectControllers();
     })
     jsPlumb.fire("jsPlumbDemoLoaded", instance);
 
