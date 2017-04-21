@@ -26,6 +26,7 @@
 
 .navbar-logo {
   margin-left: 10px;
+  margin-top: 5px;  
   text-align: left;
 }
 
@@ -34,12 +35,17 @@
 }
 
 .navbar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
   background-color: #447AE8;
   border: 0px;
   border-radius: 0;
 }
 
 .window span {
+  display: table-cell;
   vertical-align: middle;
 }
 
