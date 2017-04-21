@@ -51,18 +51,22 @@
 
 .demo {
   position: absolute;
-  top: 42px;
+  top: 50px;
   bottom: 0;
   height: auto;
   margin-bottom: 0;
 }
 
 #main {
-  margin-top: 150px;
+  margin-top: 0;
   width: auto;
   height: 100%;
   max-width: none;
   max-height: none;
+}
+
+.demo {
+  margin-top: 150px;
 }
 
 .window {   
@@ -74,7 +78,7 @@
   position: absolute;     
   left: 0;     
   right: 0;     
-  top: 0;     
+  top: 40px;     
   height: 150px;     
   background-color: light-grey;     
   border-bottom: thick solid black; 
