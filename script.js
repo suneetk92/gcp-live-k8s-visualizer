@@ -23,7 +23,7 @@ var truncate = function (str, width) {
 
 var pods = [];
 var services = [];
-var controllers = [];
+//var controllers = [];
 var uses = {};
 var deploy = [];
 var groups = {};
@@ -43,7 +43,7 @@ var insertByName = function (index, value) {
 
 var groupByName = function () {
     $.each(pods.items, insertByName);
-    $.each(controllers.items, insertByName);
+    //$.each(controllers.items, insertByName);
     $.each(services.items, insertByName);
 };
 
@@ -60,7 +60,7 @@ var matchesLabelQuery = function (labels, selector) {
     return match;
 };
 
-var connectControllers = function () {
+/*var connectControllers = function () {
     connectUses();
     for (var i = 0; i < controllers.items.length; i++) {
         var controller = controllers.items[i];
@@ -106,11 +106,12 @@ var connectControllers = function () {
             }
         }
     }
-};
+};*/
 
 var colors = [
     'rgb(213,15,37)',
-    'rgba(238,178,17,1.0)'
+    'rgba(238,178,17,1.0)',
+	'rgb(17,178,238)'
 ];
 
 var connectUses = function () {
@@ -120,6 +121,7 @@ var connectUses = function () {
 
         var color = colors[colorIx];
         colorIx++;
+		if (colorIx >= colors.length) { colorIx = 0;};
         $.each(pods.items, function (i, pod) {
             if (pod.metadata.labels && pod.metadata.labels.run == key) {
                 $.each(list, function (j, serviceKey) {
@@ -247,13 +249,13 @@ var loadData = function () {
         });
     });
 
-    var req2 = $.getJSON("/api/v1/namespaces/default/replicationcontrollers?labelSelector=visualize%3Dtrue", function (data) {
+    /*var req2 = $.getJSON("/api/v1/namespaces/default/replicationcontrollers?labelSelector=visualize%3Dtrue", function (data) {
         controllers = data;
         data.items = data.items || [];
         $.each(data.items, function (key, val) {
             val.type = 'replicationController';
         });
-    });
+    });*/
 
 
     var req3 = $.getJSON("/api/v1/namespaces/default/services?labelSelector=visualize%3Dtrue", function (data) {
@@ -263,7 +265,7 @@ var loadData = function () {
             val.type = 'service';
         });
     });
-    $.when(req1, req2, req3).then(function () {
+    $.when(req1, req3).then(function () {
         deferred.resolve();
     });
     return deferred;
@@ -279,7 +281,7 @@ var reload = function () {
 
     pods = [];
     services = [];
-    controllers = [];
+    //controllers = [];
     uses = {};
     groups = {};
 
@@ -302,7 +304,7 @@ var reload = function () {
     $.when(promise).then(function () {
         groupByName();
         renderGroups();
-        connectControllers();
+        //connectControllers();
     })
     jsPlumb.fire("jsPlumbDemoLoaded", instance);
 
