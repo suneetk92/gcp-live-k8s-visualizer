@@ -108,6 +108,27 @@ var connectControllers = function () {
     }
 };
 
+var renderNodes = function() {
+    var y = 25;
+    var x = 100;
+	$.each(nodes.items, function(index, value) {    	
+		var div = $('<div/>');
+    	var ready = 'not_ready';
+    	$.each(value.status.conditions, function(index, condition) {
+      		if (condition.type === 'Ready') {
+        		ready = (condition.status === 'True' ? 'ready' : 'not_ready' )
+      		}
+    	});
+ 		var eltDiv = $('<div class="window node ' + ready + '" title="' + value.metadata.name + '" id="node-' + value.metadata.name +
+                 '" style="left: ' + (x + 250) + '; top: ' + y + '"/>');
+	  	eltDiv.html('<span><b>Node</b><br/><br/>' + truncate(value.metadata.name, 6) + '</span>');
+    	div.append(eltDiv);
+	  	var elt = $('.nodesbar');
+		elt.append(div);
+    	x += 120;
+ 	});
+}
+
 var colors = [
     'rgb(213,15,37)',
     'rgba(238,178,17,1.0)',
@@ -194,11 +215,16 @@ var renderGroups = function () {
         var controllersCount = 0;
         $.each(list, function (index, value) {
             var eltDiv = null;
+			var phase = null;
             if (value.type == "pod") {
-                eltDiv = $('<div class="window pod" id="' + value.metadata.uid +
+				if ('deletionTimestamp' in value.metadata) {
+         			phase = 'terminating';
+        		}
+                eltDiv = $('<div class="window pod ' + phase + '" id="' + value.metadata.uid +
                     '" style="left: ' + (x + 50) + '; top: ' + (y + 160) + '"/>');
             } else if (value.type == "service") {
-                eltDiv = $('<div class="window wide service" id="' + value.metadata.uid +
+				phase = value.status.phase ? value.status.phase.toLowerCase() : '';
+                eltDiv = $('<div class="window wide service ' + phase + '" id="' + value.metadata.uid +
                     '" style="left: ' + 75 + '; top: ' + y + '"/>');
             } else {
                 eltDiv = $('<div class="window wide controller" id="' + value.metadata.uid +
@@ -305,6 +331,7 @@ var reload = function () {
         groupByName();
         renderGroups();
         connectControllers();
+		rendernodes();
     })
     jsPlumb.fire("jsPlumbDemoLoaded", instance);
 
