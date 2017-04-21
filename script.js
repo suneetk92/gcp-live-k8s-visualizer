@@ -23,7 +23,7 @@ var truncate = function (str, width) {
 
 var pods = [];
 var services = [];
-//var controllers = [];
+var controllers = [];
 var uses = {};
 var deploy = [];
 var groups = {};
@@ -43,7 +43,7 @@ var insertByName = function (index, value) {
 
 var groupByName = function () {
     $.each(pods.items, insertByName);
-    //$.each(controllers.items, insertByName);
+    $.each(controllers.items, insertByName);
     $.each(services.items, insertByName);
 };
 
@@ -60,7 +60,7 @@ var matchesLabelQuery = function (labels, selector) {
     return match;
 };
 
-/*var connectControllers = function () {
+var connectControllers = function () {
     connectUses();
     for (var i = 0; i < controllers.items.length; i++) {
         var controller = controllers.items[i];
@@ -106,7 +106,7 @@ var matchesLabelQuery = function (labels, selector) {
             }
         }
     }
-};*/
+};
 
 var colors = [
     'rgb(213,15,37)',
@@ -249,13 +249,13 @@ var loadData = function () {
         });
     });
 
-    /*var req2 = $.getJSON("/api/v1/namespaces/default/replicationcontrollers?labelSelector=visualize%3Dtrue", function (data) {
+    var req2 = $.getJSON("/api/v1/namespaces/default/replicationcontrollers?labelSelector=visualize%3Dtrue", function (data) {
         controllers = data;
         data.items = data.items || [];
         $.each(data.items, function (key, val) {
             val.type = 'replicationController';
         });
-    });*/
+    });
 
 
     var req3 = $.getJSON("/api/v1/namespaces/default/services?labelSelector=visualize%3Dtrue", function (data) {
@@ -281,7 +281,7 @@ var reload = function () {
 
     pods = [];
     services = [];
-    //controllers = [];
+    controllers = [];
     uses = {};
     groups = {};
 
