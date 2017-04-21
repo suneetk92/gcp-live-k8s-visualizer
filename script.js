@@ -331,7 +331,7 @@ var reload = function () {
         groupByName();
         renderGroups();
         connectControllers();
-		rendernodes();
+	renderNodes();
     })
     jsPlumb.fire("jsPlumbDemoLoaded", instance);
 
