@@ -119,12 +119,12 @@ var renderNodes = function() {
         		ready = (condition.status === 'True' ? 'ready' : 'not_ready' )
       		}
     	});
- 		var eltDiv = $('<div class="window node ' + ready + '" title="' + value.metadata.name + '" id="node-' + value.metadata.name +
-                 '" style="left: ' + (x + 250) + '; top: ' + y + '"/>');
-	  	eltDiv.html('<span><b>Node</b><br/><br/>' + truncate(value.metadata.name, 6) + '</span>');
+ 	var eltDiv = $('<div class="window node ' + ready + '" title="' + value.metadata.name + '" id="node-' + value.metadata.name +
+        '" style="left: ' + (x + 250) + '; top: ' + y + '"/>');
+	eltDiv.html('<span><b>Node</b><br/><br/>' + truncate(value.metadata.name, 6) + '</span>');
     	div.append(eltDiv);
-	  	var elt = $('.nodesbar');
-		elt.append(div);
+	var elt = $('.nodesbar');
+	elt.append(div);
     	x += 120;
  	});
 }
