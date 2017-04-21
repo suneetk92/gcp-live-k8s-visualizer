@@ -25,7 +25,7 @@ var pods = [];
 var services = [];
 var controllers = [];
 var uses = {};
-
+var deploy = [];
 var groups = {};
 
 var insertByName = function (index, value) {
@@ -227,8 +227,9 @@ var insertUse = function (name, use) {
 
 var loadData = function () {
     var deferred = new $.Deferred();
-    var req1 = $.getJSON("/api/v1/namespaces/default/pods", function (data) {
+    var req1 = $.getJSON("/api/v1/namespaces/default/pods?labelSelector=visualize%3Dtrue", function (data) {
         pods = data;
+        data.items = data.items || [];
         $.each(data.items, function (key, val) {
             val.type = 'pod';
 
@@ -246,16 +247,18 @@ var loadData = function () {
         });
     });
 
-    var req2 = $.getJSON("/api/v1/namespaces/default/replicationcontrollers", function (data) {
+    var req2 = $.getJSON("/api/v1/namespaces/default/replicationcontrollers?labelSelector=visualize%3Dtrue", function (data) {
         controllers = data;
+        data.items = data.items || [];
         $.each(data.items, function (key, val) {
             val.type = 'replicationController';
         });
     });
 
 
-    var req3 = $.getJSON("/api/v1/namespaces/default/services", function (data) {
+    var req3 = $.getJSON("/api/v1/namespaces/default/services?labelSelector=visualize%3Dtrue", function (data) {
         services = data;
+        data.items = data.items || [];
         $.each(data.items, function (key, val) {
             val.type = 'service';
         });
