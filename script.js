@@ -291,7 +291,15 @@ var loadData = function () {
             val.type = 'service';
         });
     });
-    $.when(req1, req2, req3).then(function () {
+	
+	var req4 = $.getJSON("/api/v1/nodes", function( data ) {
+		nodes = data;
+		$.each(data.items, function(key, val) {
+			val.type = 'node';		  
+		});
+	});
+	
+    $.when(req1, req2, req3, req4).then(function () {
         deferred.resolve();
     });
     return deferred;
@@ -310,7 +318,7 @@ var reload = function () {
     controllers = [];
     uses = {};
     groups = {};
-
+    nodes = [];
     var instance = jsPlumb.getInstance({
         // default drag options
         DragOptions: {cursor: 'pointer', zIndex: 2000},
@@ -331,7 +339,7 @@ var reload = function () {
         groupByName();
         renderGroups();
         connectControllers();
-	renderNodes();
+	    renderNodes();
     })
     jsPlumb.fire("jsPlumbDemoLoaded", instance);
 
