@@ -58,3 +58,25 @@
   height: auto;
   margin-bottom: 0;
 }
+
+.window {   
+  line-height: 1em;   
+  display: table; 
+}
+
+.nodesbar {     
+  position: absolute;     
+  left: 0;     
+  right: 0;     
+  top: 50px;     
+  height: 150px;     
+  background-color: light-grey;     
+  border-bottom: thick solid black; 
+}
+
+.not_ready {   
+  background-color: red; 
+} 
+.terminating {   
+  background-color: red; 
+}
